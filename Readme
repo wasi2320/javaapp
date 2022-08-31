@@ -1,0 +1,9 @@
+This is a simple java spring App
+Firstly i have made a Dockerfile in which it copies .war or .jar files and runs them.
+IN the Action workflow 
+  1) the code will be pushed to the remote machine
+  2) Buld will be made using maven
+  3) Dockerfile will run 
+  4) Secrets are given for AWS account
+  5) It will tag the image and move the image to Amazon ECR repo
+  6) I tried using sonarqube but i haven't learnt monitoring tools till know but I will learn them in coming time.
