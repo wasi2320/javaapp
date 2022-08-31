@@ -5,7 +5,7 @@ name: Java CI with Maven
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
     
 
 env:
@@ -28,12 +28,15 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
+    - name: Official SonarQube Scan
+      uses: SonarSource/sonarqube-scan-action@v1.1.0
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
         aws-region: ${{ secrets.AWS_REGION }}
+        
 
     - name: Login to Amazon ECR
       id: login-ecr
