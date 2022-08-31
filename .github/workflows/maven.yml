@@ -28,8 +28,6 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
-    - name: Official SonarQube Scan
-      uses: SonarSource/sonarqube-scan-action@v1.1.0
     - name: Configure AWS credentials
       uses: aws-actions/configure-aws-credentials@v1
       with:
