@@ -22,5 +22,7 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean package
-    - name: Run docker file
+    - name: Build docker file
       run: docker build -t newapp .
+    - name: Run docker file
+      run: docker run -p 80:8080 newapp
