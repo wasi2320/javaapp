@@ -24,6 +24,8 @@ jobs:
         java-version: '11'
         distribution: 'temurin'
         cache: maven
+    - name: SONARQUBE
+      run: mvn clean verify sonar:sonar Dsonar.projectKey=java1 Dsonar.host.url=http://localhost:9000 -Dsonar.login=sqp_651107768851a3f0a12a6806956188c522e1fc2d
     - name: Build with Maven
       run: mvn clean package
     - name: Configure AWS credentials
@@ -38,12 +40,12 @@ jobs:
       id: login-ecr
       uses: aws-actions/amazon-ecr-login@v1
     - name: Extract Git Tag
-      run: echo GIT_TAG=${GITHUB_REF}
+      run: echo ${{github.ref_name}}
     - name: Build, tag, and push image to Amazon ECR
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        IMAGE_TAG:  ${{ github.sha }}
+        IMAGE_TAG:  ${{ github.sha }}  #${{github.ref_name}} for tag_name
       run: |
         docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
         docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
